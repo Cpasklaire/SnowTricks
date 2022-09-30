@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% form_theme formCreatPost 'bootstrap_5_layout.html.twig' %}
+{% block title %}
+  Créer un trick
+{% endblock %}
+
+{% block body %}
+  {{ form_start(formCreatPost) }}
+
+  {{ form_row(formCreatPost.name, {'attr': {'placeholder': 'Nom de la figure'}}) }}
+  {{ form_row(formCreatPost.content) }}
+  {{ form_row(formCreatPost.photo) }}
+
+  <button type="submit" class="btn btn-primary">
+    {% if editMode %}
+        Modifier
+    {% else %}
+        Créer
+    {% endif %}
+  </button>
+
+  {{ form_end(formCreatPost) }}
+{% endblock %}

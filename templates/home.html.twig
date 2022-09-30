@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+
+    {% for post in allposts %}
+        <a href="{{ path('post', {'id': post.id}) }}">
+            <img src="{{post.photo}}">
+            <h2>{{post.name}}<h2>
+        </a>
+    {% endfor %}
+
+
+{% endblock %}

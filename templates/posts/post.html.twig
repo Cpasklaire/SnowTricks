@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{post.name}}{% endblock %}
+
+{% block body %}
+
+<img src="{{post.photo}}">
+<h2>{{post.name}}<h2>
+{{post.content | raw}}
+{{post.upDating | date('d/m/Y')}}
+{% endblock %}
