@@ -4,12 +4,23 @@
 
 {% block body %}
 
-    {% for post in allposts %}
-        <a href="{{ path('post', {'id': post.id}) }}">
-            <img src="{{post.photo}}">
-            <h2>{{post.name}}<h2>
-        </a>
-    {% endfor %}
+    
 
+{% for trick in tricks %}    
+<div class="card mb-3">
+
+{#<img src="{{post.photo}}">
+<img src="{{ asset('pictures/trick_defaut.jpg') }}">#}
+                <div class="card-body">        
+                
+                <a href="{{ path('trick', {'slug': trick.slug}) }}">
+            
+            <h2>{{trick.name}}<h2>
+        </a>
+
+                </div>
+
+</div>
+{% endfor %}
 
 {% endblock %}
