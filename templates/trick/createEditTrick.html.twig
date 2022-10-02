@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
-{% form_theme formCreatPost 'bootstrap_5_layout.html.twig' %}
-{% block title %}
-  Créer un trick
-{% endblock %}
+
+{% form_theme formTrick 'bootstrap_5_layout.html.twig' %}
+
+{% block title %} - Créer un trick{% endblock %}
 
 {% block body %}
-  {{ form_start(formCreatPost) }}
+  {{ form_start(formTrick) }}
 
-  {{ form_row(formCreatPost.name, {'attr': {'placeholder': 'Nom de la figure'}}) }}
-  {{ form_row(formCreatPost.content) }}
-  {{ form_row(formCreatPost.photo) }}
+    {{ form_row(formTrick.name, {'attr': {'placeholder': 'Nom de la figure'}}) }}
+    {{ form_row(formTrick.content, {'attr': {'placeholder': 'Description de la figure'}}) }}
+    {{ form_row(formTrick.category) }}
 
-  <button type="submit" class="btn btn-primary">
-    {% if editMode %}
-        Modifier
-    {% else %}
-        Créer
-    {% endif %}
-  </button>
+    <button type="submit" class="btn btn-primary">
+      {% if editMode %}
+          Modifier
+      {% else %}
+          Créer
+      {% endif %}
+    </button>
 
-  {{ form_end(formCreatPost) }}
+  {{ form_end(formTrick) }}
 {% endblock %}

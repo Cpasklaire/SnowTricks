@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SnowTricks{% block title %}{% endblock %}</title>
-    <link href="./public/style.css" rel="stylesheet-css" />
-    <link href="https://bootswatch.com/5/sketchy/bootstrap.min.css" rel="stylesheet-bootstrap" />
-
-    {% block javascripts %}
+    
+    <link href="/./public/style.css" rel="stylesheet" />
+    <link href="https://bootswatch.com/5/sketchy/bootstrap.min.css" rel="stylesheet" />
+    {#{% block javascripts %}
       {{ encore_entry_script_tags('app') }}
-    {% endblock %}
+    {% endblock %}#}
   </head>
 
   <body>
@@ -23,13 +23,13 @@
             <li class="nav-item"><a class="nav-link" href="/">Acceuil</a></li>
             
             {#{% if currentUser.id is null  %}#}
-            <li class="nav-item"><a class="nav-link" href="{{ path('singin') }}">S'inscrire</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('login') }}">Se connecter</a></li>
+            <li class="nav-item"><a class="nav-link" href="{#{{ path('singin') }}#}">S'inscrire</a></li>
+            <li class="nav-item"><a class="nav-link" href="{#{{ path('login') }}#}">Se connecter</a></li>
             {#{% endif %}
 
             {% if currentUser.id > 1  %}#}
             <li class="nav-item"><a class="nav-link" href="{{ path('newTrick') }}">Ajouter un trick</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ path('logout') }}">Déconnection</a></li>
+            <li class="nav-item"><a class="nav-link" href="{#{{ path('logout') }}#}">Déconnection</a></li>
             {#{% endif %}#}
           </ul>
         </div>
