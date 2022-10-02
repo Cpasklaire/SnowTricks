@@ -51,12 +51,18 @@ class TrickController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
 
             if(!$trick->getId()){
-            $trick->setCreatDate(new \DateTime());                
+            $trick->setCreatedAte(new \DateTime());
+            //a supprimer avec les user
+            $trick->setAuthor('un auteur');            
             }
 
             $trick->setUpDating(new \DateTime());  
+            //a supprimer avec les user
+            $trick->setAuthorUp('un auteur qui up');   
+
+            $name = $trick->getName();
             $slugger = new AsciiSlugger();
-            $slug = $slugger->slug($setName);
+            $slug = $slugger->slug($name);
             $trick->setSlug($slug);
 
             $manager->persist($trick);
@@ -66,6 +72,16 @@ class TrickController extends AbstractController
 
         }
 
-        return $this->render('trick/creat.html.twig', ['formCreatTrick' => $form->createView(), 'editMode' => $post->getId() !== null]);
+        return $this->render('trick/createEditTrick.html.twig', ['formTrick' => $form->createView(), 'editMode' => $trick->getId() !== null]);
     }
+
+        //delect one trick
+/*
+        #[Route('/trick/{slug}/delete', name: 'deleteTrick')]
+        public function deleteTrick(Request $request, Trick $trick, TrickRepository $trickRepository, TranslatorInterface $translator): Response
+        {
+                $trickRepository->remove($trick);
+
+            return $this->redirectToRoute('home');
+        }*/
 }

@@ -1,10 +1,13 @@
 <?php
-
+//https://symfony.com/doc/current/validation.html
 namespace App\Entity;
 
 use App\Repository\TrickRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 class Trick
@@ -15,12 +18,24 @@ class Trick
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Length([
+        'min' => 2,
+        'max' => 50,
+        'minMessage' => 'Le nom de votre figure doit contenir plus de 2 caractéres',
+        'maxMessage' => 'Le nom de votre figure doit contenir moins de 50 caractéres',
+    ])]
     private ?string $name = null;
 
     #[ORM\Column(length: 50)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length([
+        'min' => 2,
+        'max' => 1000,
+        'minMessage' => 'Le nom de votre figure doit contenir plus de 2 caractéres',
+        'maxMessage' => 'Le nom de votre figure doit contenir moins de 1000 caractéres',
+    ])]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
