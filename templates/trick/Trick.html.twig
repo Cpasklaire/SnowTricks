@@ -21,7 +21,7 @@
   <div class="card">
     <div class="card-body">
       <h6 class="card-subtitle mb-2 text-muted">Création</h6>
-      <p class="card-text">Le {{trick.createdAte | date('d/m/Y')}} par {{trick.author}}</p>
+      <p class="card-text">Le {{trick.createdAte | date('d/m/Y')}} par {#{{trick.author}}#}</p>
     </div>
   </div>
 
@@ -49,9 +49,22 @@
     <div class="card">
       <div class="card-body">
         <h6 class="card-subtitle mb-2 text-muted">Mise à jour</h6>
-        <p class="card-text">Le {{trick.upDating | date('d/m/Y')}} par {{trick.authorUp}}</p>
+        <p class="card-text">Le {{trick.upDating | date('d/m/Y')}} par {# {{trick.authorUp}} #}</p>
       </div>
     </div>
   {% endif %}
   
+  <div class="bs-component">
+    {#{% for comment in trick.comments %}
+      <div class="toast-header">
+         <img href="{{ comment.authorAvatard }}"> 
+        <strong class="me-auto">{{ comment.author }}</strong>
+        <small>{{ comment.createdAte | date('d/m/Y')}}</small>
+      </div>
+      <div class="toast-body">
+        
+      </div>
+    {% endfor %}#}
+  </div>
+
 {% endblock %}

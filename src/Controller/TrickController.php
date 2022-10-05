@@ -52,13 +52,11 @@ class TrickController extends AbstractController
 
             if(!$trick->getId()){
             $trick->setCreatedAte(new \DateTime());
-            //a supprimer avec les user
-            $trick->setAuthor('un auteur');            
+            //$trick->setAuthor('un auteur');            
             }
 
             $trick->setUpDating(new \DateTime());  
-            //a supprimer avec les user
-            $trick->setAuthorUp('un auteur qui up');   
+            //$trick->setAuthorUp('un auteur qui up');   
 
             $name = $trick->getName();
             $slugger = new AsciiSlugger();
@@ -76,12 +74,12 @@ class TrickController extends AbstractController
     }
 
         //delect one trick
-/*
-        #[Route('/trick/{slug}/delete', name: 'deleteTrick')]
-        public function deleteTrick(Request $request, Trick $trick, TrickRepository $trickRepository, TranslatorInterface $translator): Response
+
+        #[Route('/trick/{slug}#delete', name: 'deleteTrick')]
+        public function deleteTrick(Trick $trick): Response
         {
-                $trickRepository->remove($trick);
+                $this->trickRepository->remove($trick);
 
             return $this->redirectToRoute('home');
-        }*/
+        }
 }
