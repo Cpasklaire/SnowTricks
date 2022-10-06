@@ -75,7 +75,7 @@ class TrickController extends AbstractController
 
         //delect one trick
 
-        #[Route('/trick/{slug}#delete', name: 'deleteTrick')]
+        #[Route('/trick/{slug}/delete', name: 'deleteTrick')]
         public function deleteTrick(Trick $trick): Response
         {
                 $this->trickRepository->remove($trick);

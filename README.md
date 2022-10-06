@@ -7,6 +7,7 @@ bootstrap theme => sketchy by Thomas Park.
 
 # Memory dev
 commande 
+'''shell
 symfony server:start
 
 php bin/console make:controller
@@ -21,7 +22,8 @@ composer require orm-fixtures --dev   //fake données
 php bin/console make:fixtures
 écrire la fixure
 php bin/console doctrine:fixtures:load
+'''
 
 # Sam
-liens (image et css)
+liens (image et css) => toujours commencer à public/index
 pop up delete

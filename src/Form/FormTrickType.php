@@ -26,8 +26,8 @@ class FormTrickType extends AbstractType
                     'Mortel' => 4,
                 ]
             ])
-            ->add('media')
-            ->add('comments');
+            //->add('media')
+            //->add('comments');
         ;
     }
 

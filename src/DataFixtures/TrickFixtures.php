@@ -21,9 +21,9 @@ class TrickFixtures extends Fixture
             ->setContent("plein d'écriture")
             ->setCreatedAte(new \DateTime())
             ->setUpDating(new \DateTime())
-            ->setCategory("2")
-            ->getMedia($media)
-            ->getComments($comments);
+            ->setCategory("2");
+            //->addMedium($medium)
+            //->addComments($comments);
 
             $manager->persist($trick);
 
@@ -46,6 +46,8 @@ class TrickFixtures extends Fixture
 
                 $manager->persist($comment);
             }
+
+
         }
 
         $manager->flush();

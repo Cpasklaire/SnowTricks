@@ -16,11 +16,7 @@ class FormMediaType extends AbstractType
             ->add('type')
             ->add('createdAte')
             ->add('upDating')
-            ->add('trickRelation', EntityType::class, [
-                'class' => Trick::class,
-                'choice_label' => 'type',
-                'choice_label' => 'url',
-            ])
+            ->add('trickRelation')
         ;
     }
 
