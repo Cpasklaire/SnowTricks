@@ -24,6 +24,10 @@ class Comment
     #[ORM\JoinColumn(nullable: true)]
     private ?Trick $trickRelation = null;
 
+    #[ORM\ManyToOne(inversedBy: 'CommentRelation')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $CreatedUser = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +65,18 @@ class Comment
     public function setTrickRelation(?Trick $trickRelation): self
     {
         $this->trickRelation = $trickRelation;
+
+        return $this;
+    }
+
+    public function getCreatedUser(): ?User
+    {
+        return $this->CreatedUser;
+    }
+
+    public function setCreatedUser(?User $CreatedUser): self
+    {
+        $this->CreatedUser = $CreatedUser;
 
         return $this;
     }

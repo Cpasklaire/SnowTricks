@@ -23,12 +23,13 @@ class Media
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAte = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $upDating = null;
-
     #[ORM\ManyToOne(inversedBy: 'media')]
     #[ORM\JoinColumn(nullable: true)]
     private ?trick $trickRelation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'MediaRelation')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $CreatedUser = null;
 
     public function getId(): ?int
     {
@@ -71,18 +72,6 @@ class Media
         return $this;
     }
 
-    public function getUpDating(): ?\DateTimeInterface
-    {
-        return $this->upDating;
-    }
-
-    public function setUpDating(?\DateTimeInterface $upDating): self
-    {
-        $this->upDating = $upDating;
-
-        return $this;
-    }
-
     public function getTrickRelation(): ?trick
     {
         return $this->trickRelation;
@@ -91,6 +80,18 @@ class Media
     public function setTrickRelation(?trick $trickRelation): self
     {
         $this->trickRelation = $trickRelation;
+
+        return $this;
+    }
+
+    public function getCreatedUser(): ?User
+    {
+        return $this->CreatedUser;
+    }
+
+    public function setCreatedUser(?User $CreatedUser): self
+    {
+        $this->CreatedUser = $CreatedUser;
 
         return $this;
     }

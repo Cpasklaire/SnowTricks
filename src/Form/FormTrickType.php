@@ -14,10 +14,10 @@ class FormTrickType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('slug')
+            //->add('slug')
             ->add('content')
-            ->add('createdAte')
-            ->add('upDating')
+            //->add('createdAte')
+            //->add('upDating')
             ->add('category', ChoiceType::class, [
                 'choices' => [
                     'Facile' => 1,

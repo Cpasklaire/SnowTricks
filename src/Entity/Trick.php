@@ -55,6 +55,13 @@ class Trick
     #[ORM\OneToMany(mappedBy: 'trickRelation', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\ManyToOne(inversedBy: 'trickRealtion')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $CreatedUser = null;
+
+    #[ORM\ManyToOne(inversedBy: 'upTrickRelation')]
+    private ?User $UpUser = null;
+
     public function __construct()
     {
         $this->media = new ArrayCollection();
@@ -199,5 +206,28 @@ class Trick
         return $this;
     }
 
+    public function getCreatedUser(): ?User
+    {
+        return $this->CreatedUser;
+    }
+
+    public function setCreatedUser(?User $CreatedUser): self
+    {
+        $this->CreatedUser = $CreatedUser;
+
+        return $this;
+    }
+
+    public function getUpUser(): ?User
+    {
+        return $this->UpUser;
+    }
+
+    public function setUpUser(?User $UpUser): self
+    {
+        $this->UpUser = $UpUser;
+
+        return $this;
+    }
 
 }

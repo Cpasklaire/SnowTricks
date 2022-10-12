@@ -11,12 +11,14 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 use Doctrine\ORM\EntityManagerInterface; //objetmanager
 
 use App\Entity\Trick;
+use App\Entity\Comment;
 use App\Repository\TrickRepository;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Form\FormTrickType;
+use App\Form\FormCommentType;
 
 class TrickController extends AbstractController
 {
@@ -25,15 +27,34 @@ class TrickController extends AbstractController
     public function home(trickRepository $trickRepo): Response
     {
         $tricks = $trickRepo->findAll();
-        return $this->render('home.html.twig', ['tricks' => $tricks,]);
+        return $this->render('home.html.twig', [
+            'tricks' => $tricks, 
+        ]);
     }
 
-    //view one trick
+    //view one trick and creat and view comments
     #[Route('/trick/{slug}', name: 'trick')]
-    public function trick($slug, TrickRepository $trickRepo): Response
+    public function trick($slug, TrickRepository $trickRepo, Request $request, EntityManagerInterface $manager): Response
     {
+        //creat comment
+        $comment = new Comment();
+        $form = $this->createForm(FormCommentType::class, $comment);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $comment->setCreatedAte(new \DateTime())
+                    ->setRalationTrick($trick);
+                    //->setRelationCreateUser()
+            $manager->persist($comment);
+            $manager->flush();
+            return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
+        }
+
+
         $trick = $trickRepo->findOneBy(['slug' => $slug]);
-        return $this->render('trick/trick.html.twig', ['trick' => $trick,]);
+        return $this->render('trick/trick.html.twig', [
+            'trick' => $trick,
+            'commentForm' => $form->creatView()
+        ]);
     }
 
     //create and edit one trick

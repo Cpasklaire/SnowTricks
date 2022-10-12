@@ -7,7 +7,7 @@
 {% block body %}
   {{ form_start(formTrick) }}
 
-    {{ form_row(formTrick.name, {'attr': {'placeholder': 'Nom de la figure'}}) }}
+    {{ form_row(formTrick.name, {'label' : 'Nom de la figure', 'attr': {'placeholder': 'Nom de la figure'}}) }}
     {{ form_row(formTrick.content, {'attr': {'placeholder': 'Description de la figure'}}) }}
     {{ form_row(formTrick.category) }}
 

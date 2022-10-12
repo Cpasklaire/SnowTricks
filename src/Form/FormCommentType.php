@@ -15,11 +15,11 @@ class FormCommentType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('createdAte')
-            ->add('trickRelation', EntityType::class, [
-                'class' => Trick::class,
-                'choice_label' => 'content',
-            ])
+            //->add('createdAte')
+            //->add('trickRelation', EntityType::class, [
+            //    'class' => Trick::class,
+            //    'choice_label' => 'content',
+            //])
         ;
     }
 

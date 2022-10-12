@@ -22,15 +22,13 @@
           <ul class="navbar-nav me-auto">
             <li class="nav-item"><a class="nav-link" href="/">Acceuil</a></li>
             
-            {#{% if currentUser.id is null  %}#}
-            <li class="nav-item"><a class="nav-link" href="{#{{ path('singin') }}#}">S'inscrire</a></li>
-            <li class="nav-item"><a class="nav-link" href="{#{{ path('login') }}#}">Se connecter</a></li>
-            {#{% endif %}
-
-            {% if currentUser.id > 1  %}#}
+            {% if not app.user %}
+            <li class="nav-item"><a class="nav-link" href="{{ path('registration') }}">S'inscrire</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ path('login') }}">Se connecter</a></li>
+            {% else %}
             <li class="nav-item"><a class="nav-link" href="{{ path('newTrick') }}">Ajouter un trick</a></li>
-            <li class="nav-item"><a class="nav-link" href="{#{{ path('logout') }}#}">Déconnection</a></li>
-            {#{% endif %}#}
+            <li class="nav-item"><a class="nav-link" href="{{ path('logout') }}">Déconnection</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>
