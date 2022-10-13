@@ -22,8 +22,10 @@ composer require orm-fixtures --dev   //fake données
 php bin/console make:fixtures
 écrire la fixure
 php bin/console doctrine:fixtures:load
+
+php bin/console debug:autowiring --all //les service possible
 '''
 
 # Sam
 liens (image et css) => toujours commencer à public/index
-pop up delete
+pop up delete => normal

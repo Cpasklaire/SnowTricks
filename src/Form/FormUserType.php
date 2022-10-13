@@ -6,6 +6,9 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+//use Symfony\Component\HttpFoundation\File\File;
+//use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 class FormUserType extends AbstractType
 {
@@ -18,7 +21,7 @@ class FormUserType extends AbstractType
             ->add('confirmPassword')
             ->add('email')
             //->add('createdAte')
-            ->add('avatar')
+            ->add('imageFile', VichImageType::class)
         ;
     }
 
