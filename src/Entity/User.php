@@ -48,16 +48,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $upDating = null;
-
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, cascade: ['persist'])]
     private Collection $CommentRelation;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Media::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Media::class, cascade: ['persist'])]
     private Collection $MediaRelation;
 
-    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Trick::class)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Trick::class, cascade: ['persist'])]
     private Collection $TrickRelation;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -281,18 +278,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getImageFile(): ?File
     {
         return $this->imageFile;
-    }
-
-    public function getUpDating(): ?\DateTimeInterface
-    {
-        return $this->upDating;
-    }
-
-    public function setUpDating(\DateTimeInterface $upDating): self
-    {
-        $this->upDating = $upDating;
-
-        return $this;
     }
 
     public function getToken(): ?string

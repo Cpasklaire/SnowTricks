@@ -11,6 +11,8 @@ use App\Entity\User;
 use App\Form\FormUserType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 //use App\Service\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 
 class SecurityController extends AbstractController
 {
@@ -20,7 +22,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/singin', name: 'registration')]
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher): Response {
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer): Response {
         $user = new User();
         $form = $this->createForm(FormUserType::class, $user);
 
@@ -41,11 +43,13 @@ class SecurityController extends AbstractController
             $manager->flush();
 
             //mail d'activation
-            $to = $user->getEmail();
-            $subject = "";
-            $token = $user->getToken();
-            $message = "blablabla $token blablabla";
-            mail($to, $subject, $message);
+            $email = (new Email())
+            ->from('sasha.leroux92@gmail.com')
+            ->to($user->getEmail())
+            ->subject('Bienvenue sur Show Tricks')
+            ->text('blablabla $token blablabla');
+            $mailer->send($email);
+
 
             $this->addFlash("flash", "Inscription réussie ! Vérifiez votre boîte mail pour activer votre compte.");
 

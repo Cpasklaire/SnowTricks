@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formMedia 'bootstrap_5_layout.html.twig' %}
+
+{% block title %} - Ajouter un média{% endblock %}
+
+{% block body %}
+  <h2>Une petite illustration ?</h2>
+
+  {{ form_start(formMedia) }}
+    {{ form_row(formMedia.type, {'label' : 'Ajouter une photo ou vidéo ? '}) }}
+          
+    {{ form_row(formMedia.imageFile) }}
+    {{ form_row(formMedia.url) }}
+
+          <button type="submit" class="btn btn-primary">
+      Sauvegarder 
+    </button>
+
+
+  {{ form_end(formMedia) }}
+
+
+
+{% endblock %}

@@ -29,3 +29,9 @@ php bin/console debug:autowiring --all //les service possible
 # Sam
 liens (image et css) => toujours commencer à public/index
 pop up delete => normal
+
+mail par symfo => pas réussie a config
+image affigege 
+
+
+Activation, mdp perdu, role, msp=confirm

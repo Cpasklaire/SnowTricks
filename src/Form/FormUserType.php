@@ -7,8 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
-//use Symfony\Component\HttpFoundation\File\File;
-//use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class FormUserType extends AbstractType
 {
@@ -17,11 +16,15 @@ class FormUserType extends AbstractType
         $builder
             ->add('Pseudo')
             //->add('roles')
-            ->add('password')
-            ->add('confirmPassword')
+            ->add('password', PasswordType::class, [
+                'attr' => ['type' => 'password'],
+            ])
+            ->add('confirmPassword', PasswordType::class, [
+                'attr' => ['type' => 'password'],
+            ])
             ->add('email')
             //->add('createdAte')
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class, ['required' => false,])
         ;
     }
 

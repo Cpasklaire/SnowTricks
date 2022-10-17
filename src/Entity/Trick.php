@@ -49,14 +49,14 @@ class Trick
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $category = null;
 
-    #[ORM\OneToMany(mappedBy: 'trickRelation', targetEntity: Media::class)]
+    #[ORM\OneToMany(mappedBy: 'trickRelation', targetEntity: Media::class, cascade: ['remove'])]
     private Collection $media;
 
-    #[ORM\OneToMany(mappedBy: 'trickRelation', targetEntity: Comment::class)]
+    #[ORM\OneToMany(mappedBy: 'trickRelation', targetEntity: Comment::class, cascade: ['remove'])]
     private Collection $comments;
 
     #[ORM\ManyToOne(inversedBy: 'trickRealtion')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?User $CreatedUser = null;
 
     #[ORM\ManyToOne(inversedBy: 'upTrickRelation')]
