@@ -14,16 +14,36 @@
       </a>   
     </div>    
     
-    <h2 class="centered ">{{trick.name}}<h2>
-    {% if trick.media | length > 9 %}
-      <img src="/pictures/images/{{trick.media.imageName | first}}" style="width:100%;"></img>
+    <h2 class="centered ">{{trick.name}}</h2>
+
+    {% if trick.media | length > 0 %}
+      {% for media in trick.media %}
+      
+        {% if media.mainPhoto == 1 %}
+          <img src="/pictures/images/{{media.imageName}}" style="width:90%;"></img>
+        {% elseif not media.mainPhoto == 1 %}
+        {% else %}
+          <img src="/pictures/trick_defaut.jpg" style="width:100%;"></img>
+        {% endif %}
+      {% endfor %}
     {% else %}
-      <img src="/pictures/trick_defaut.jpg" style="width:100%;"></img>
+    <img src="/pictures/trick_defaut.jpg" style="width:100%;"></img>
     {% endif %}
   </div>
 
   {% for media in trick.media %}
-    <img src="/pictures/images/{{media.imageName}}" style="width:30%;"></img>
+    {#{% if not loop.first %}#}
+      {% if media.type == 1 and not loop.first %}
+      <img src="/pictures/images/{{media.imageName}}" style="width:30%;"></img>
+      {% else %}
+        <iframe width="250"
+          height="161"
+          src="https://www.youtube.com/embed/{{ media.url }}"
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      {% endif %}
+    {#{% endif %}#}
   {% endfor %}
 
   <div class="card">

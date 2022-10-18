@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class FormMediaType extends AbstractType
 {
@@ -26,6 +27,9 @@ class FormMediaType extends AbstractType
             //->add('upDating')
             //->add('trickRelation')
             ->add('imageFile', VichImageType::class, ['required' => false,])
+            ->add('mainPhoto', CheckboxType::class, [
+                'label' => 'Est-ce l\'image principale ?',
+                'required' => false,])
         ;
     }
 

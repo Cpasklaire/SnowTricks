@@ -37,13 +37,18 @@ class MediaController extends AbstractController
             
         if($formMedia->isSubmitted() && $formMedia->isValid()){
             $media->setCreatedAte(new \DateTime())
-                ->setTrickRelation($trick);           
+                ->setTrickRelation($trick)
+                ->setUpdatedAt(new \DateTime());           
             
         if(!$media->getImageFile()) {
-            $media->setImageFile(0);
+            $media->setImageName(0);
         }else{
             $media->setUrl(0);
         }
+
+        /* if($media->setMainPhoto(1)) 
+        recherche toute la collection de media
+        passer les autre mainphoto sur false*/
             
             $manager->persist($media);
             $manager->flush();

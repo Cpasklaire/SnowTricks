@@ -28,7 +28,6 @@ class Media
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
 
-
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
@@ -46,6 +45,9 @@ class Media
     #[ORM\JoinColumn(nullable: true)]
     private ?User $CreatedUser = null;
 
+    #[ORM\Column]
+    private ?bool $mainPhoto = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,14 +64,15 @@ class Media
         return $this;
     }
 
-    public function isType(): ?int
+    public function getType(): ?int
     {
         return $this->type;
     }
 
-    public function setType(bool $type): self
+    public function setType(int $type): self
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -109,12 +112,15 @@ class Media
     public function setImageFile(?File $imageFile = null): void
     {
         $this->imageFile = $imageFile;
-
-        if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 
     public function getImageFile(): ?File
@@ -130,5 +136,17 @@ class Media
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    public function isMainPhoto(): ?bool
+    {
+        return $this->mainPhoto;
+    }
+
+    public function setMainPhoto(bool $mainPhoto): self
+    {
+        $this->mainPhoto = $mainPhoto;
+
+        return $this;
     }
 }
