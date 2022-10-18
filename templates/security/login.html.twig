@@ -16,9 +16,10 @@
             <input placeholder="Pseudo" type="text" class="form-control" required name="_username">
             <span>Votre mot de passe</span>
             <input placeholder="Mot de passe" type="password" class="form-control" required name="_password">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <button type="submit" class="btn btn-primary">connection</button>
         </div>
     </form>
 
-    <a {#href="{{ path('') }}"#}>Mot de passe oublier ?</a>
+    <a href="{{ path('forgot-pass') }}">Mot de passe oublier ?</a>
 {% endblock %}

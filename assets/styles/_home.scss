@@ -1,14 +1,24 @@
-.accroche {
-    background-image: url("/pictures/home.jpg");
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 500px;
-    h1 {
-        padding-left: 60%;
-        padding-top: 10%;
+.home {
+    margin: 3%;
+    .accroche {
+        background-image: url("/pictures/home.jpg");
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 500px;
+        h1 {
+            padding-left: 60%;
+            padding-top: 10%;
+        }
+        h2 {
+            padding-left: 50%;
+        }
     }
-    h2 {
-        padding-left: 50%;
+    .tricks {
+        display: flex;
+        justify-content: space-between;
+        .card {
+                width: 15%;
+        }
     }
 }

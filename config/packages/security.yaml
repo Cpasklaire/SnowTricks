@@ -19,11 +19,17 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-
+                enable_csrf: true
             logout:
                 path: logout
                 target: home
-
+            login_throttling:
+                max_attempts: 3
+            login_link:
+                check_route: login_check
+                signature_properties: ['id']
+                lifetime: 300
+                max_uses: 2
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -34,7 +40,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        #- { path: ^/newTrick, roles: ROLE_USER }
+        #- { path: ^/trick/{slug}/media, roles: ROLE_USER }
+        #- { path: ^/trick/{slug}/edit, roles: ROLE_USER }
+        #- { path: ^/trick/{slug}/delete, roles: ROLE_USER }
 
 when@test:
     security:
