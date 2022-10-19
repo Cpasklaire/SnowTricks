@@ -27,11 +27,11 @@ php bin/console debug:autowiring --all //les service possible
 '''
 
 # Sam
-liens (image et css) => toujours commencer à public/index
-pop up delete => normal
+mail par symfo => pas réussie a config étoyer bundle ? 
+image main et delect
+bootstrap js
+passe info pop up
+user.active comment j'ai fait ? 
 
-mail par symfo => pas réussie a config
-image affigege 
-
-
-Activation, mdp perdu, role, msp=confirm
+remonter au top
+pagination

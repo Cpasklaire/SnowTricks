@@ -5,23 +5,22 @@
 {% block title %} - Ajouter un média{% endblock %}
 
 {% block body %}
-  <h2>Une petite illustration ?</h2>
+  <section class="form">
+    <h2>Une petite illustration ?</h2>
 
-  {{ form_start(formMedia) }}
-    {{ form_row(formMedia.type, {'label' : 'Ajouter une photo ou vidéo ? '}) }}
+    {{ form_start(formMedia) }}
+      {{ form_row(formMedia.type, {'label' : 'Ajouter une photo ou vidéo ? '}) }} 
+        {% if formMedia.type == '1' %}
+          {{ form_row(formMedia.imageFile) }}
+          {{ form_row(formMedia.mainPhoto) }}
+        {% elseif  formMedia.type == '2' %}
+          {{ form_row(formMedia.url, {'label' : 'Id de la vidéo youtube (l\'id se trouve dans l\'adresse url après "v=")'}) }}
+        {% endif %}
+        <button type="submit" class="btn btn-primary">
+          Sauvegarder 
+        </button>
+    {{ form_end(formMedia) }}
 
-      
-      {% if formMedia.type == '1' %}
-      
-        {{ form_row(formMedia.imageFile) }}
-      {% elseif  formMedia.type == '2' %}
-        {{ form_row(formMedia.url, {'label' : 'Id de la vidéo youtube (l\'id se trouve dans l\'adresse url après "v=")'}) }}
-      {% endif %}
-      <button type="submit" class="btn btn-primary">
-        Sauvegarder 
-      </button>
-  {{ form_end(formMedia) }}
-
-
-
+<a href="{{ path('trick', {'slug': slug}) }}" class="btm btm-primary">Non merci</a>
+  </section>
 {% endblock %}

@@ -48,7 +48,8 @@ class MediaController extends AbstractController
 
         /* if($media->setMainPhoto(1)) 
         recherche toute la collection de media
-        passer les autre mainphoto sur false*/
+        passer les autre mainphoto sur false
+        Toujours avec 1 main photo si photo*/
             
             $manager->persist($media);
             $manager->flush();
@@ -57,7 +58,8 @@ class MediaController extends AbstractController
         }
 
 
-        return $this->render('trick/createEditMedia.html.twig', ['formMedia' => $formMedia->createView()]);
+        return $this->render('trick/createEditMedia.html.twig', ['formMedia' => $formMedia->createView(),
+        'slug' => $trick->getSlug()]);
     }
 
         //delect one trick

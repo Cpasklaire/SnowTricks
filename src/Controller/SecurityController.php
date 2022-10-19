@@ -129,7 +129,10 @@ class SecurityController extends AbstractController
 
     #[Route('/login', name: 'login')]
     public function login() {
-        /* SAM seule user.activate = true peuvent ce connecter */
+        /* SAM
+        sI LOG FAIL 
+        $this->addFlash("flash", "Avez vous ativé votre compte ? Vérifier vos spam");
+            return $this->redirectToRoute("login");*/
         return $this->render('security/login.html.twig');
     }
 }

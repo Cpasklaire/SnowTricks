@@ -1,19 +1,88 @@
-/* Container holding the image and the text */
-.container {
+.trick {
+  margin: 3%;
+
+  .container {
     position: relative;
     text-align: center;
-
-  /* Centered text */
-.centered {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 90%;
+    img {
+      width: 100%;
+    }
+    .top-right {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+      background-color: rgba(255, 255, 255, 0.623);
+    }
+    .centered {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.623);
+      padding: 1%;
+    }
   }
-/* Top right text */
-  .top-right {
-    position: absolute;
-    top: 8px;
-    right: 16px;
+  .media {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 3%;
+    img, iframe{
+      width: 250px;
+      height: 161px
+    }
+  }
+
+  .description {
+    text-align: center;
+    margin: 3%;
+    padding: 1%;
+  }
+
+  .details {
+    display: flex;
+    justify-content: center;
+    .card {
+      margin-left: 3%;
+      width: 15%;
+      text-align: center;
+    }
+  }
+
+  .formComment {
+    text-align: center;
+    padding: 1%;
+    margin: 3%;
+  }
+
+  .comments {
+    h5 {
+      text-align: center;
+      margin: 1%;
+    }
+    .comment {
+      margin-left: 3%;
+      margin-right: 3%;
+      margin-bottom: 1%;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      padding: 1%;
+      align-items: center;
+      .author {
+        width: 10%;
+        img {
+          border-radius: 50%;
+          width: 50px;
+          height: 50px;
+        }
+      }
+      .content {
+        width: 70%;
+      }
+      .date {
+        width: 10%;
+      }
+    }
   }
 }
