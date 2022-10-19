@@ -149,4 +149,21 @@ class Media
 
         return $this;
     }
+
+    public function setlectMainPhoto($id) {
+        $medias = $trick->getMedia();
+        $mediaIds = [];
+        if (count($medias)) {            
+            foreach($medias as $media) {
+                if ($media->id != $id) {
+                    $mediaIds[] = $media->id;
+                }
+            }
+            if (count($mediaIds)) {
+                $q = $em->createQuery("UPDATE Media m SET m.mainPhoto = 0 WHERE id IN (:ids)")
+                    ->setParameter(':ids', $mediaIds, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+                $numUpdated = $q->execute();
+            }
+        }   
+    }
 }

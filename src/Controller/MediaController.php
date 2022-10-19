@@ -35,25 +35,26 @@ class MediaController extends AbstractController
 
         $formMedia->handleRequest($request); 
             
-        if($formMedia->isSubmitted() && $formMedia->isValid()){
+        if($formMedia->isSubmitted() && $formMedia->isValid()) {
             $media->setCreatedAte(new \DateTime())
                 ->setTrickRelation($trick)
                 ->setUpdatedAt(new \DateTime());           
             
-        if(!$media->getImageFile()) {
-            $media->setImageName(0);
-        }else{
-            $media->setUrl(0);
-        }
+            if(!$media->getImageFile()) {
+                $media->setImageName(0);
+            } else {
+                $media->setUrl(0);
+            } 
 
-        /* if($media->setMainPhoto(1)) 
-        recherche toute la collection de media
-        passer les autre mainphoto sur false
-        Toujours avec 1 main photo si photo*/
+            $medias = $trick->getMedia();
+            if (count($medias) < 1 || $formMedia->mainPhoto) {
+                $media->setMainPhoto(1);
+                $media->selectMainMedia(0);             
+            }
             
             $manager->persist($media);
             $manager->flush();
-
+                        
             return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
         }
 
