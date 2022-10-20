@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Services\MailerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,7 @@ use Symfony\Component\Security\Http\LoginLink\LoginLinkNotification;
 use Symfony\Component\Notifier\Recipient\Recipient;
 use Symfony\Component\Notifier\NotifierInterface;
 
+
 class SecurityController extends AbstractController
 {
     private function generateToken()
@@ -27,7 +29,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/singin', name: 'registration')]
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer): Response {
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, MailerService $mailer): Response {
         $user = new User();
         $form = $this->createForm(FormUserType::class, $user);
 
@@ -45,21 +47,13 @@ class SecurityController extends AbstractController
             $user->setToken($this->generateToken());
 
             $manager->persist($user);
-            $manager->flush();
+            //$manager->flush();
 
             //mail d'activation
-            $email = (new Email())
-            ->from('hello@example.com')
-            ->to('you@example.com')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
 
-        $mailer->send($email);
+            $message = 'activation compte' .$user->getToken();
+
+            $mailer->sendEmail(from: 'no-reply@swontrick.fr ', to: $user->getEmail(), subject: "Création d'un compte utilisateur.", content: $message);
 
 
             $this->addFlash("flash", "Inscription réussie ! Vérifiez votre boîte mail pour activer votre compte.");
