@@ -31,10 +31,7 @@ mail par symfo => pas réussie a config étoyer bundle ?
 
 image main et delect
 
-bootstrap js => compile js
 passe info pop up
-
-user.active comment j'ai fait ? 
 
 remonter au top
 pagination

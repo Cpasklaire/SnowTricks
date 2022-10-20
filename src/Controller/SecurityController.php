@@ -49,11 +49,17 @@ class SecurityController extends AbstractController
 
             //mail d'activation
             $email = (new Email())
-            ->from('sasha.leroux92@gmail.com')
-            ->to($user->getEmail())
-            ->subject('Bienvenue sur Show Tricks')
-            ->text('blablabla $token blablabla');
-            $mailer->send($email);
+            ->from('hello@example.com')
+            ->to('you@example.com')
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
+
+        $mailer->send($email);
 
 
             $this->addFlash("flash", "Inscription réussie ! Vérifiez votre boîte mail pour activer votre compte.");

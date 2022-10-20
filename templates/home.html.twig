@@ -14,19 +14,9 @@
         <div class="tricks">
             {% for trick in tricks %}
                 <div class="card mb-3">
-{#                     {% for media in trick.media %}
-                        {% if media.mainPhoto == 1 and media.type == 1 | length > 0 %}
-                            <img src="/pictures/images/{{media.imageName}}"></img>
-                        {% elseif not media.mainPhoto == 1 and media.type == 1 | length > 0 %}
-                            <img src="/pictures/trick_defaut.jpg"></img>
-                        {% elseif media.type == 2 %}
-                        {% elseif media.type == 1 | length == 0 %}
-                            <img src="/pictures/trick_defaut.jpg"></img>
-                        {% endif %}    
-                    {% endfor %} #}
 
                     {% for media in trick.media %}
-                        {% if media.type == 1 %}
+                        {% if media.type == 1 > 0 %}
                             {% if media.mainPhoto == 1 %}
                             <img src="/pictures/images/{{media.imageName}}"></img>
                             {% endif %}
