@@ -21,15 +21,13 @@ class FormMediaType extends AbstractType
                 'choices' => [
                     'Photo' => 1,
                     'Video' => 2,
-                ]
+                ],
+                //'expanded' => true
             ])
             //->add('createdAte')
             //->add('upDating')
             //->add('trickRelation')
             ->add('imageFile', VichImageType::class, ['required' => false,])
-            ->add('mainPhoto', CheckboxType::class, [
-                'label' => 'Est-ce l\'image principale ?',
-                'required' => false,])
         ;
     }
 

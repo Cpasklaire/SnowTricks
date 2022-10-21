@@ -9,13 +9,12 @@
     <h2>Une petite illustration ?</h2>
 
     {{ form_start(formMedia) }}
-      {{ form_row(formMedia.type, {'label' : 'Ajouter une photo ou vidéo ? '}) }} 
-        {% if formMedia.type == '1' %}
-          {{ form_row(formMedia.imageFile) }}
-          {{ form_row(formMedia.mainPhoto) }}
-        {% elseif  formMedia.type == '2' %}
-          {{ form_row(formMedia.url, {'label' : 'Id de la vidéo youtube (l\'id se trouve dans l\'adresse url après "v=")'}) }}
-        {% endif %}
+      {{ form_row(formMedia.type, {'label' : 'Ajouter une photo ou vidéo ? '}) }}
+{# {% if formMedia.type is selectedchoice(1) %}
+        {{ form_row(formMedia.imageFile) }}
+{% else %}
+        {{ form_row(formMedia.url, {'label' : 'Id de la vidéo youtube (l\'id se trouve dans l\'adresse url après "v=")'}) }}
+{% endif %} #}
         <button type="submit" class="btn btn-primary">
           Sauvegarder 
         </button>

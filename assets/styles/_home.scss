@@ -9,14 +9,16 @@
         background-image: url("/pictures/home.jpg");
         background-size: contain;
         background-repeat: no-repeat;
-        width: 100%;
+        width: 80%;
         height: 500px;
+        margin-left: 10%;
         h1 {
             padding-left: 60%;
             padding-top: 10%;
         }
         h2 {
             padding-left: 50%;
+            margin-bottom: 20%;
         }
     }
     .tricks {
@@ -30,7 +32,10 @@
             }
         }
     }
-
+    .arrow {
+        margin-left: 97%;
+    }
+}
     .overlay {
         position: fixed;
         top: 0;
@@ -67,4 +72,3 @@
             overflow: auto;
         }
     }
-}

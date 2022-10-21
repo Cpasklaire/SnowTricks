@@ -45,12 +45,6 @@ class MediaController extends AbstractController
             } else {
                 $media->setUrl(0);
             } 
-
-            $medias = $trick->getMedia();
-            if (count($medias) < 1 || $formMedia->mainPhoto) {
-                $media->setMainPhoto(1);
-                $media->selectMainMedia(0);             
-            }
             
             $manager->persist($media);
             $manager->flush();

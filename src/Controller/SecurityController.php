@@ -47,13 +47,15 @@ class SecurityController extends AbstractController
             $user->setToken($this->generateToken());
 
             $manager->persist($user);
-            //$manager->flush();
+            $manager->flush();
 
             //mail d'activation
+            $userToken = $user->getToken();
+            $message = '<h1>Confirmez votre compte pour vous connectez</h1>
+            <a href="https://127.0.0.1:8000/confirmer-mon-compte/'.$userToken.'">Cliquez ici ! </a>'
+            ;
 
-            $message = 'activation compte' .$user->getToken();
-
-            $mailer->sendEmail(from: 'no-reply@swontrick.fr ', to: $user->getEmail(), subject: "Création d'un compte utilisateur.", content: $message);
+            $mailer->sendEmail(from: 'no-reply@swontrick.fr ', to: $user->getEmail(), subject: "Activation du compte Swon Tricks !", content: $message);
 
 
             $this->addFlash("flash", "Inscription réussie ! Vérifiez votre boîte mail pour activer votre compte.");
@@ -71,10 +73,7 @@ class SecurityController extends AbstractController
     { 
         $user = $userRepo->findOneBy(['token' => $token]);
 
-        $formValid = $this->createForm(FormValidType::class, $user);
-        $formValid->handleRequest($request);
-
-        if($formValid->isSubmitted() && $formValid->isValid()){
+        if($user){
             $user->setToken(null)
                 ->setActivate(true);
 
@@ -84,9 +83,10 @@ class SecurityController extends AbstractController
             $this->addFlash("flash", "Compte actif ! Connectez vous ! ");
             return $this->redirectToRoute("login");
         } 
-        return $this->render('security/confirmToken.html.twig', [
-            'formValid' => $formValid->createView()
-        ]);
+        else{
+            $this->addFlash("flash", "Aucun compte trouver");
+            return $this->redirectToRoute("login");
+        }
     }
 
     #[Route('/login_check', name: 'login_check')]
@@ -99,14 +99,12 @@ class SecurityController extends AbstractController
     #[Route('/forgot-pass', name: 'forgot-pass')] // email configuration
     public function requestLoginLink(NotifierInterface $notifier, LoginLinkHandlerInterface $loginLinkHandler, UserRepository $userRepository, Request $request)
     {
-        // check if login form is submitted
+
         if ($request->isMethod('POST')) {
-            // load the user in some way (e.g. using the form input)
+
             $email = $request->request->get('email');
             $user = $userRepository->findOneBy(['email' => $email]);
 
-            // create a login link for $user this returns an instance
-            // of LoginLinkDetails
             $loginLinkDetails = $loginLinkHandler->createLoginLink($user);
             $loginLink = $loginLinkDetails->getUrl();
 

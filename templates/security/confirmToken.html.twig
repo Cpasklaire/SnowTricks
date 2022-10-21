@@ -4,16 +4,11 @@
 
 {% block body %}
 
-{% for flash in app.flashes('flash') %}
-    {{ flash }}
-{% endfor %}
-
     <h2>Connexion</h2>
 
-      {{ form_start(formValid) }}
-
+{#       {{ form_start(formValid) }}
 
     <button type="submit" class="btn btn-primary">Créer</button>
 
-  {{ form_end(formValid) }}
+  {{ form_end(formValid) }} #}
 {% endblock %}
