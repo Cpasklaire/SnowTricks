@@ -5,19 +5,22 @@
 {% block title %} - Créer un trick{% endblock %}
 
 {% block body %}
-  {{ form_start(formTrick) }}
+  <section class="form">
+    <h2>Nouveau trick</h2>
+    {{ form_start(formTrick) }}
 
-    {{ form_row(formTrick.name, {'attr': {'placeholder': 'Nom de la figure'}}) }}
-    {{ form_row(formTrick.content, {'attr': {'placeholder': 'Description de la figure'}}) }}
-    {{ form_row(formTrick.category) }}
+      {{ form_row(formTrick.name, {'label' : 'Nom de la figure', 'attr': {'placeholder': 'Nom de la figure'}}) }}
+      {{ form_row(formTrick.content, {'label' : 'Description', 'attr': {'placeholder': 'Description de la figure'}}) }}
+      {{ form_row(formTrick.category, {'label' : 'Difficulté'}) }}
 
-    <button type="submit" class="btn btn-primary">
-      {% if editMode %}
+
+      <button type="submit" class="btn btn-primary">
+        {% if editMode %}
           Modifier
-      {% else %}
+        {% else %}
           Créer
-      {% endif %}
-    </button>
-
-  {{ form_end(formTrick) }}
+        {% endif %}
+      </button> 
+    {{ form_end(formTrick) }}
+  </section>
 {% endblock %}

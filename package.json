@@ -21,5 +21,8 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress",
         "sass": "sass --watch assets/styles/style.scss public/style.css --style compressed"
+    },
+    "dependencies": {
+        "bootswatch": "^5.2.2"
     }
 }

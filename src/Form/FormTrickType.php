@@ -18,16 +18,16 @@ class FormTrickType extends AbstractType
             ->add('content')
             //->add('createdAte')
             //->add('upDating')
-            //->add('author')
-            //->add('authorUp')
             ->add('category', ChoiceType::class, [
                 'choices' => [
                     'Facile' => 1,
                     'Moyen' => 2,
                     'Difficile' => 3,
                     'Mortel' => 4,
-                ],
+                ]
             ])
+            //->add('media')
+            //->add('comments');
         ;
     }
 

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TrickRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -44,14 +46,28 @@ class Trick
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $upDating = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $author = null;
-
-    #[ORM\Column(length: 50, nullable: true)]
-    private ?string $authorUp = null;
-
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $category = null;
+
+    #[ORM\OneToMany(mappedBy: 'trickRelation', targetEntity: Media::class, cascade: ['remove'])]
+    private Collection $media;
+
+    #[ORM\OneToMany(mappedBy: 'trickRelation', targetEntity: Comment::class, cascade: ['remove'])]
+    private Collection $comments;
+
+    #[ORM\ManyToOne(inversedBy: 'trickRealtion')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?User $CreatedUser = null;
+
+    #[ORM\ManyToOne(inversedBy: 'upTrickRelation')]
+    private ?User $UpUser = null;
+
+    public function __construct()
+    {
+        $this->media = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -118,30 +134,6 @@ class Trick
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
-    public function getAuthorUp(): ?string
-    {
-        return $this->authorUp;
-    }
-
-    public function setAuthorUp(?string $authorUp): self
-    {
-        $this->authorUp = $authorUp;
-
-        return $this;
-    }
-
     public function getCategory(): ?int
     {
         return $this->category;
@@ -153,4 +145,89 @@ class Trick
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Media>
+     */
+    public function getMedia(): Collection
+    {
+        return $this->media;
+    }
+
+    public function addMedium(Media $medium): self
+    {
+        if (!$this->media->contains($medium)) {
+            $this->media->add($medium);
+            $medium->setTrickRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMedium(Media $medium): self
+    {
+        if ($this->media->removeElement($medium)) {
+            // set the owning side to null (unless already changed)
+            if ($medium->getTrickRelation() === $this) {
+                $medium->setTrickRelation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setTrickRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getTrickRelation() === $this) {
+                $comment->setTrickRelation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedUser(): ?User
+    {
+        return $this->CreatedUser;
+    }
+
+    public function setCreatedUser(?User $CreatedUser): self
+    {
+        $this->CreatedUser = $CreatedUser;
+
+        return $this;
+    }
+
+    public function getUpUser(): ?User
+    {
+        return $this->UpUser;
+    }
+
+    public function setUpUser(?User $UpUser): self
+    {
+        $this->UpUser = $UpUser;
+
+        return $this;
+    }
+
 }

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formMedia 'bootstrap_5_layout.html.twig' %}
+
+{% block title %} - Ajouter un média{% endblock %}
+
+{% block body %}
+  <section class="form">
+    <h2>Une petite illustration ?</h2>
+
+    {{ form_start(formMedia) }}
+      {{ form_row(formMedia.type, {'label' : 'Ajouter une photo ou vidéo ? '}) }}
+{# {% if formMedia.type is selectedchoice(1) %}
+        {{ form_row(formMedia.imageFile) }}
+{% else %}
+        {{ form_row(formMedia.url, {'label' : 'Id de la vidéo youtube (l\'id se trouve dans l\'adresse url après "v=")'}) }}
+{% endif %} #}
+        <button type="submit" class="btn btn-primary">
+          Sauvegarder 
+        </button>
+    {{ form_end(formMedia) }}
+
+<a href="{{ path('trick', {'slug': slug}) }}" class="btm btm-primary">Non merci</a>
+  </section>
+{% endblock %}
