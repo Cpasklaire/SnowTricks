@@ -42,7 +42,11 @@ class MediaController extends AbstractController
             
             if(!$media->getImageFile()) {
                 $media->setImageName(0);
-            } else {
+                $url = $media->getVideo();
+                parse_str( parse_url( $url, PHP_URL_QUERY ), $urlId );
+                $media->setUrl($urlId['v']);
+                
+             } else {
                 $media->setUrl(0);
             } 
             

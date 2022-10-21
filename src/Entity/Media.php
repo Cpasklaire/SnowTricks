@@ -31,6 +31,8 @@ class Media
     #[ORM\Column(length: 255)]
     private ?string $url = null;
 
+    public ?string $video = null;
+
     #[ORM\Column (type: Types::SMALLINT)]
     private ?int $type = null;
 
@@ -59,6 +61,11 @@ class Media
     {
         $this->url = $url;
         return $this;
+    }
+
+    public function getVideo(): ?string
+    {
+        return $this->video;
     }
 
     public function getType(): ?int

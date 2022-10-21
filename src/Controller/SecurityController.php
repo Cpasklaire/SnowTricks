@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use App\Form\FormUserType;
+use App\Form\FormPassType;
 use App\Form\FormValidType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -89,48 +90,83 @@ class SecurityController extends AbstractController
         }
     }
 
-    #[Route('/login_check', name: 'login_check')]
-    public function login_check() {
-    }
-
     #[Route('/logout', name: 'logout')]
     public function logout() {}
 
-    #[Route('/forgot-pass', name: 'forgot-pass')] // email configuration
-    public function requestLoginLink(NotifierInterface $notifier, LoginLinkHandlerInterface $loginLinkHandler, UserRepository $userRepository, Request $request)
+    #[Route('/login', name: 'login')]
+    public function login() {
+        return $this->render('security/login.html.twig');
+    }    
+    
+    #[Route('/login_check', name: 'login_check')]
+    public function login_check() {
+    }    
+    
+    
+    #[Route('/forgot-pass', name: 'forgot-pass')] // mdp persu
+    public function forgotPass(Request $request, UserRepository $userRepo, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, MailerService $mailer)
     {
 
         if ($request->isMethod('POST')) {
 
             $email = $request->request->get('email');
-            $user = $userRepository->findOneBy(['email' => $email]);
+            $user = $userRepo->findOneBy(['email' => $email]);
+            if($user){
+                $user->setToken($this->generateToken());
+                $manager->persist($user);
+                $manager->flush();
 
-            $loginLinkDetails = $loginLinkHandler->createLoginLink($user);
-            $loginLink = $loginLinkDetails->getUrl();
+                $userToken = $user->getToken();
+                $message = '<h1>Changer votre mot de passe</h1>
+                <a href="https://127.0.0.1:8000/'.$userToken.'">Cliquez ici ! </a>'
+                ;
 
-            $notification = new LoginLinkNotification(
-                $loginLinkDetails,
-                'Welcome to MY WEBSITE!' // email subject
-            );
-            // create a recipient for this user
-            $recipient = new Recipient($user->getEmail());
+                $recipient = new Recipient($user->getEmail());
+                $mailer->sendEmail(from: 'no-reply@swontrick.fr ', to: $user->getEmail(), subject: "Mot de passe perdu !", content: $message);
 
-            // send the notification to the user
-            $notifier->send($notification, $recipient);
-
-            // render a "Login link is sent!" page
-            return $this->render('security/login_link_sent.html.twig');
-
+                return $this->redirectToRoute("login");
+            }
         }
         return $this->render('security/forgotPassword.html.twig');
     }
 
-    #[Route('/login', name: 'login')]
-    public function login() {
-        /* SAM
-        sI LOG FAIL 
-        $this->addFlash("flash", "Avez vous ativé votre compte ? Vérifier vos spam");
-            return $this->redirectToRoute("login");*/
-        return $this->render('security/login.html.twig');
+    #[Route('/connectToken/{token}', name: 'connectToken')] // mdp persu
+    public function connectToken(string $token, Request $request, EntityManagerInterface $manager, UserRepository $userRepo)
+    { 
+        $user = $userRepo->findOneBy(['token' => $token]);
+
+        if($user){
+            $user->setToken(null);
+
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute("changeMDP", ['pseudo' => $user->getPseudo()]);
+        }
+    }
+
+    #[Route('/edit/{pseudo}', name: 'changeMDP')]
+    public function changeMDP($pseudo, UserRepository $userRepo, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher): Response {
+
+        $user = $userRepo->findOneBy(['Pseudo' => $pseudo]);
+        $form = $this->createForm(FormPassType::class, $user);
+
+        $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()) {
+
+                //password
+                $plaintextPassword = $user->getPassword();
+                $hashedPassword = $passwordHasher->hashPassword($user,$plaintextPassword);
+                $user->setPassword($hashedPassword);
+
+                $manager->persist($user);
+                $manager->flush();
+
+                return $this->redirectToRoute('login');
+            }
+
+        return $this->render('security/changeMDP.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 }
