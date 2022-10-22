@@ -19,56 +19,75 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Form\FormTrickType;
-use App\Form\FormMediaType;
+use App\Form\FormPhotoType;
+use App\Form\FormVideoType;
 use App\Form\FormCommentType;
 
 class MediaController extends AbstractController
 {
 
-    //create and edit one media
-    #[Route('/trick/{slug}/media', name: 'addMedia')]
-    public function formMedia(Trick $trick, Request $request, EntityManagerInterface $manager, Media $media = null): Response
+    //create one video
+    #[Route('/trick/{slug}/video', name: 'addVideo')]
+    public function formVideo(Trick $trick, Request $request, EntityManagerInterface $manager, Media $video = null): Response
     {
-        
-        $media = new Media();
-        $formMedia = $this->createForm(FormMediaType::class, $media);
+        $video = new Media();
+        $formVideo = $this->createForm(FormVideoType::class, $video);
 
-        $formMedia->handleRequest($request); 
+        $formVideo->handleRequest($request); 
             
-        if($formMedia->isSubmitted() && $formMedia->isValid()) {
-            $media->setCreatedAte(new \DateTime())
-                ->setTrickRelation($trick)
-                ->setUpdatedAt(new \DateTime());           
-            
-            if(!$media->getImageFile()) {
-                $media->setImageName(0);
-                $url = $media->getVideo();
-                parse_str( parse_url( $url, PHP_URL_QUERY ), $urlId );
-                $media->setUrl($urlId['v']);
+        if($formVideo->isSubmitted() && $formVideo->isValid()) {
+
+            $url = $video->getVideo();
+            parse_str( parse_url( $url, PHP_URL_QUERY ), $urlId );            
+            $video->setUrl($urlId['v']);
+            $video->setCreatedAte(new \DateTime());
+            $video->setTrickRelation($trick);
+            $video->setUpdatedAt(new \DateTime());
+            $video->setImageName(0);
+            $video->setType(2);
                 
-             } else {
-                $media->setUrl(0);
-            } 
-            
-            $manager->persist($media);
+            $manager->persist($video);
             $manager->flush();
                         
             return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
         }
-
-
-        return $this->render('trick/createEditMedia.html.twig', ['formMedia' => $formMedia->createView(),
+        return $this->render('trick/createVideo.html.twig', ['formVideo' => $formVideo->createView(),
         'slug' => $trick->getSlug()]);
     }
 
-        //delect one trick
-
-        #[Route('/trick/{slug}/delete', name: 'deleteTrick')]
-        public function deleteTrick(Trick $trick, EntityManagerInterface $manager): Response
+        //create one photo
+        #[Route('/trick/{slug}/photo', name: 'addPhoto')]
+        public function formPhoto(Trick $trick, Request $request, EntityManagerInterface $manager, Media $photo = null): Response
         {
-            $manager->remove($trick);
-            $manager->flush();
+            
+            $photo = new Media();
+            $formPhoto = $this->createForm(FormPhotoType::class, $photo);
+    
+            $formPhoto->handleRequest($request); 
+                
+            if($formPhoto->isSubmitted() && $formPhoto->isValid()) {
+                $photo->setCreatedAte(new \DateTime());
+                $photo->setTrickRelation($trick);
+                $photo->setUpdatedAt(new \DateTime());
+                $photo->setUrl(0);
+                $photo->setType(1);
+                
+                $manager->persist($photo);
+                $manager->flush();
+                            
+                return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
+            }
+            return $this->render('trick/createPhoto.html.twig', ['formPhoto' => $formPhoto->createView(),
+            'slug' => $trick->getSlug()]);
+        }
 
-            return $this->redirectToRoute('home');
+        //delect one media
+
+        #[Route('/trick/{slug}/deleteMedia', name: 'deleteMedia')]
+        public function deleteMedia(Media $media, EntityManagerInterface $manager): Response
+        {
+            $manager->remove($media);
+            $manager->flush();
+            return $this->redirectToRoute('trick');
         }
 }

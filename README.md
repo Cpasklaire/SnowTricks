@@ -27,10 +27,5 @@ php bin/console debug:autowiring --all //les service possible
 '''
 
 # Sam
-mail par symfo => pas réussie a config étoyer bundle ? 
-
-image main et delect
-
-remonter au top
 pagination
 404 error cach

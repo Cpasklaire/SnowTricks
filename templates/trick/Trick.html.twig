@@ -6,6 +6,9 @@
   <section class="trick">
 
     <div class=" container">
+    	{% if not trick.media|length %}
+        <img src="/pictures/trick_defaut.jpg"></img>
+			{% endif %}
       {% for media in trick.media %}
           {% if media.type == 1 > 0 %}
               {% if loop.first %}

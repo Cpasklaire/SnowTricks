@@ -100,7 +100,7 @@ class TrickController extends AbstractController
 
         //delect one trick
 
-        #[Route('/trick/{slug}/delete', name: 'deleteTrick')]
+        #[Route('/trick/{slug}/deletetrick', name: 'deleteTrick')]
         public function deleteTrick(Trick $trick, EntityManagerInterface $manager): Response
         {
             $manager->remove($trick);

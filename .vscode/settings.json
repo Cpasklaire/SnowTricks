@@ -1,2 +1,7 @@
-{"emmet.includeLanguages": {"twig": "html"}
+{
+    "emmet.includeLanguages": {
+        "twig": "html"
+    },
+    "editor.accessibilitySupport": "on",
+    "editor.codeLens": true
 }
