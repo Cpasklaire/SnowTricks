@@ -61,7 +61,7 @@ class TrickController extends AbstractController
 
     //create and edit one trick
     #[Route('/newTrick', name: 'newTrick')]
-    #[Route('/trick/{slug}/edit', name: 'editTrick')]
+    #[Route('/edit/{slug}', name: 'editTrick')]
     public function formTrick(Trick $trick = null, Request $request, EntityManagerInterface $manager, Media $media = null): Response
     {
         if(!$trick){
@@ -89,7 +89,7 @@ class TrickController extends AbstractController
             $manager->persist($trick);
             $manager->flush();
 
-            return $this->redirectToRoute('addMedia', ['slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('/trick/{slug}', ['slug' => $trick->getSlug()]);
 
         }
 
@@ -100,12 +100,12 @@ class TrickController extends AbstractController
 
         //delect one trick
 
-        #[Route('/trick/{slug}/deletetrick', name: 'deleteTrick')]
+        #[Route('/delete/trick/{slug}', name: 'deleteTrick')]
         public function deleteTrick(Trick $trick, EntityManagerInterface $manager): Response
         {
             $manager->remove($trick);
             $manager->flush();
-
+            $this->addFlash("flash", "Figure supprimée à jamais...");
             return $this->redirectToRoute('home');
         }
 }

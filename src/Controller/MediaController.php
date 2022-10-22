@@ -27,7 +27,7 @@ class MediaController extends AbstractController
 {
 
     //create one video
-    #[Route('/trick/{slug}/video', name: 'addVideo')]
+    #[Route('/edit/video/{slug}', name: 'addVideo')]
     public function formVideo(Trick $trick, Request $request, EntityManagerInterface $manager, Media $video = null): Response
     {
         $video = new Media();
@@ -48,7 +48,8 @@ class MediaController extends AbstractController
                 
             $manager->persist($video);
             $manager->flush();
-                        
+            
+            $this->addFlash("flash", "Video ajouté ! ");
             return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
         }
         return $this->render('trick/createVideo.html.twig', ['formVideo' => $formVideo->createView(),
@@ -56,7 +57,7 @@ class MediaController extends AbstractController
     }
 
         //create one photo
-        #[Route('/trick/{slug}/photo', name: 'addPhoto')]
+        #[Route('edit/photo/{slug}', name: 'addPhoto')]
         public function formPhoto(Trick $trick, Request $request, EntityManagerInterface $manager, Media $photo = null): Response
         {
             
@@ -74,7 +75,8 @@ class MediaController extends AbstractController
                 
                 $manager->persist($photo);
                 $manager->flush();
-                            
+                
+                $this->addFlash("flash", "Photo ajouté ! ");
                 return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
             }
             return $this->render('trick/createPhoto.html.twig', ['formPhoto' => $formPhoto->createView(),
@@ -83,11 +85,12 @@ class MediaController extends AbstractController
 
         //delect one media
 
-        #[Route('/trick/{slug}/deleteMedia', name: 'deleteMedia')]
-        public function deleteMedia(Media $media, EntityManagerInterface $manager): Response
+        #[Route('/delete/media/{slug}/', name: 'deleteMedia')]
+        public function deleteMedia(Media $media, Trick $trick, EntityManagerInterface $manager): Response
         {
             $manager->remove($media);
             $manager->flush();
-            return $this->redirectToRoute('trick');
+            $this->addFlash("flash", "Media supprimé ! ");
+            return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
         }
 }
