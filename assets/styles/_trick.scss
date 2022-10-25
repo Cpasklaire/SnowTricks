@@ -15,6 +15,9 @@
       top: 8px;
       right: 16px;
       background-color: rgba(255, 255, 255, 0.623);
+      a {
+        text-decoration: none;
+      }
     }
     .centered {
       position: absolute;
@@ -29,9 +32,10 @@
     display: flex;
     justify-content: space-between;
     padding-top: 3%;
-    img, iframe{
+    img,
+    iframe {
       width: 250px;
-      height: 161px
+      height: 161px;
     }
   }
 
@@ -58,19 +62,19 @@
   }
 
   .comments {
+    align-items: center;
     h5 {
       text-align: center;
       margin: 1%;
     }
     .comment {
-      margin-left: 3%;
-      margin-right: 3%;
       margin-bottom: 1%;
       display: flex;
       justify-content: space-between;
       flex-direction: row;
       padding: 1%;
       align-items: center;
+      width: 95%;
       .author {
         width: 10%;
         img {
@@ -84,6 +88,26 @@
       }
       .date {
         width: 10%;
+      }
+    }
+    a {
+      width: 20%;
+      margin: 10px;
+    }
+  }
+
+  .commentover {
+    .popup {
+      width: 80%;
+      height: 90%;
+      overflow-y: scroll;
+      scrollbar-color: rebeccapurple green;
+      scrollbar-width: thin;
+      .close {
+        position: absolute;
+        right: 3%;
+        top: 3%;
+        z-index: 1;
       }
     }
   }
@@ -103,9 +127,10 @@
       display: flex;
       justify-content: space-between;
       padding-top: 3%;
-      img, iframe{
+      img,
+      iframe {
         width: 250px;
-        height: 161px
+        height: 161px;
       }
     }
     .details {
