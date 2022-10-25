@@ -89,7 +89,7 @@ class TrickController extends AbstractController
             $manager->persist($trick);
             $manager->flush();
 
-            return $this->redirectToRoute('/trick/{slug}', ['slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
 
         }
 

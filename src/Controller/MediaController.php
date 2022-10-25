@@ -82,15 +82,4 @@ class MediaController extends AbstractController
             return $this->render('trick/createPhoto.html.twig', ['formPhoto' => $formPhoto->createView(),
             'slug' => $trick->getSlug()]);
         }
-
-        //delect one media
-
-        #[Route('/delete/media/{slug}/', name: 'deleteMedia')]
-        public function deleteMedia(Media $media, Trick $trick, EntityManagerInterface $manager): Response
-        {
-            $manager->remove($media);
-            $manager->flush();
-            $this->addFlash("flash", "Media supprimé ! ");
-            return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
-        }
 }
