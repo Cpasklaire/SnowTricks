@@ -68,7 +68,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/confirmer-mon-compte/{token}', name: 'confirm_account')]
-    public function confirmAccount(string $token, Request $request, EntityManagerInterface $manager, UserRepository $userRepo)
+    public function confirmAccount(string $token, EntityManagerInterface $manager, UserRepository $userRepo)
     { 
         $user = $userRepo->findOneBy(['token' => $token]);
 
@@ -102,7 +102,7 @@ class SecurityController extends AbstractController
     
     
     #[Route('/forgot-pass', name: 'forgot-pass')]
-    public function forgotPass(Request $request, UserRepository $userRepo, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, MailerService $mailer)
+    public function forgotPass(Request $request, UserRepository $userRepo, EntityManagerInterface $manager, MailerService $mailer)
     {
 
         if ($request->isMethod('POST')) {
@@ -119,7 +119,7 @@ class SecurityController extends AbstractController
                 <a href="https://127.0.0.1:8000/connectToken/'.$userToken.'">Cliquez ici ! </a>'
                 ;
 
-                $recipient = new Recipient($user->getEmail());
+                //$recipient = new Recipient($user->getEmail());
                 $mailer->sendEmail(from: 'no-reply@swontrick.fr ', to: $user->getEmail(), subject: "Mot de passe perdu !", content: $message);
                 
                 $this->addFlash("flash", "Un mail viens de vous être envoyé.");
@@ -129,8 +129,8 @@ class SecurityController extends AbstractController
         return $this->render('security/forgotPassword.html.twig');
     }
 
-    #[Route('/connectToken/{token}', name: 'connectToken')] // mdp persu
-    public function connectToken(string $token, Request $request, EntityManagerInterface $manager, UserRepository $userRepo)
+    #[Route('/connectToken/{token}', name: 'connectToken')]
+    public function connectToken(string $token, EntityManagerInterface $manager, UserRepository $userRepo)
     { 
         $user = $userRepo->findOneBy(['token' => $token]);
 

@@ -62,7 +62,7 @@ class TrickController extends AbstractController
     //create and edit one trick
     #[Route('/newTrick', name: 'newTrick')]
     #[Route('/edit/{slug}', name: 'editTrick')]
-    public function formTrick(Trick $trick = null, Request $request, EntityManagerInterface $manager, Media $media = null): Response
+    public function formTrick(Trick $trick = null, Request $request, EntityManagerInterface $manager): Response
     {
         if(!$trick){
             $trick = new Trick();
