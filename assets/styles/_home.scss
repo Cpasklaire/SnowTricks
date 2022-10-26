@@ -13,7 +13,7 @@
       padding-left: 60%;
       padding-top: 10%;
     }
-    
+
     h2 {
       padding-left: 50%;
       margin-bottom: 20%;
@@ -43,6 +43,12 @@
     margin-left: 90%;
     text-decoration: none;
   }
+}
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 40%;
+  align-items: center;
 }
 .overlay {
   position: fixed;

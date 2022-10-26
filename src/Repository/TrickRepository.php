@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Trick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @extends ServiceEntityRepository<Trick>
@@ -37,6 +38,14 @@ class TrickRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    
+    public function findForPagination(): Query
+    {
+        $qb = $this->createQueryBuilder('trick')
+            ->orderBy('trick.createdAte', 'DESC');
+
+        return $qb->getQuery();
     }
 
 //    /**

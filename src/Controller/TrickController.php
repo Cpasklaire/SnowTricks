@@ -22,15 +22,17 @@ use App\Form\FormTrickType;
 use App\Form\FormMediaType;
 use App\Form\FormCommentType;
 
+use App\Services\PaginationService;
+
 class TrickController extends AbstractController
 {
     //view all tricks
     #[Route('/', name: 'home')]
-    public function home(trickRepository $trickRepo): Response
+    public function home(PaginationService $trickPagination): Response
     {
-        $tricks = $trickRepo->findAll();
+        //$tricks = $trickRepo->findAll();
         return $this->render('home.html.twig', [
-            'tricks' => $tricks, 
+            'tricks' => $trickPagination->getPaginatedTrick(), 
         ]);
     }
 
