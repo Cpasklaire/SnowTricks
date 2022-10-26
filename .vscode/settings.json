@@ -1,7 +1,0 @@
-{
-    "emmet.includeLanguages": {
-        "twig": "html"
-    },
-    "editor.accessibilitySupport": "on",
-    "editor.codeLens": true
-}

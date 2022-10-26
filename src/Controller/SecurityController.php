@@ -68,7 +68,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/confirmer-mon-compte/{token}', name: 'confirm_account')]
-    public function confirmAccount(string $token, EntityManagerInterface $manager, UserRepository $userRepo)
+    public function confirmAccount(string $token, EntityManagerInterface $manager, UserRepository $userRepo, Request $request,)
     { 
         $user = $userRepo->findOneBy(['token' => $token]);
 
@@ -102,7 +102,7 @@ class SecurityController extends AbstractController
     
     
     #[Route('/forgot-pass', name: 'forgot-pass')]
-    public function forgotPass(Request $request, UserRepository $userRepo, EntityManagerInterface $manager, MailerService $mailer)
+    public function forgotPass(Request $request, UserRepository $userRepo, EntityManagerInterface $manager, MailerService $mailer, UserPasswordHasherInterface $passwordHasher)
     {
 
         if ($request->isMethod('POST')) {
@@ -130,7 +130,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/connectToken/{token}', name: 'connectToken')]
-    public function connectToken(string $token, EntityManagerInterface $manager, UserRepository $userRepo)
+    public function connectToken(string $token, EntityManagerInterface $manager, UserRepository $userRepo, Request $request)
     { 
         $user = $userRepo->findOneBy(['token' => $token]);
 

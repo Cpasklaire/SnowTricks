@@ -22,7 +22,7 @@ class PaginationService
         $request = $this->requestStack->getMainRequest();
         $tricksQuery = $this->trickRepo->findForPagination();
         $page = $request->query->getInt('page', 1);
-        $limit = 3;
+        $limit = 10;
 
         return $this->paginator->paginate($tricksQuery, $page, $limit);
     }

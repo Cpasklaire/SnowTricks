@@ -18,12 +18,17 @@
                         <img src="/pictures/trick_defaut.jpg"></img>
 				    {% endif %}
 				    {% for media in trick.media %}
-					    {% if media.type == 1|length  %}
-						    {% if loop.first %}
-							    <img src="/pictures/images/{{media.imageName}}"></img>
-					        {% endif %}
-				        {% else %}
-					    <img src="/pictures/trick_defaut.jpg"></img>
+						{% if loop.first %}
+							{% if media.type == 1 %}
+								<img src="/pictures/images/{{media.imageName}}"></img>
+							{% else %}
+							    <iframe
+              					src="https://www.youtube.com/embed/{{ media.url }}"
+              					title="YouTube video player"
+              					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              					allowfullscreen></iframe>
+							{% endif %}
+				    	{% else %}
 			            {% endif %}
 		            {% endfor %}
 
@@ -41,14 +46,9 @@
 					    {% endif %}
 			        </div>
 		        </div>
-                <div id="delete{{trick.slug}}" class="overlay">
-                    <div class="popup">
-                        <h3>Suprimer le trick{{trick.name}}</h3>
-                        <div class="content">Si vous souhaitez supprimer le trick, tous les medias (photo et vidéo) et les commentaires vont être supprimer aussi</div>
-                        <a class="btn btn-danger" href="{{ path('deleteTrick', {'slug': trick.slug}) }}">Oui ! Je ne peux plus le voir !</a>
-                        <a class="btn btn-success" href="#">En faite... non</a>
-                    </div>
-                </div>
+				    {% block overlay %}
+      {% include "overlay.html.twig" with {'trick': trick } %}
+    {% endblock %}  
             {% endfor %}
         </div>
         {% if tricks | length > 10 %}
