@@ -46,9 +46,9 @@
 					    {% endif %}
 			        </div>
 		        </div>
-				    {% block overlay %}
-      {% include "overlay.html.twig" with {'trick': trick } %}
-    {% endblock %}  
+				{% block overlay %}
+      				{% include "overlay.html.twig" with {'trick': trick } %}
+    			{% endblock %}  
             {% endfor %}
         </div>
         {% if tricks | length > 10 %}
