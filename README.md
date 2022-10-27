@@ -19,7 +19,7 @@ Dans votre console
 # Thanks you
 picture => vecteezy.com
 bootstrap theme => sketchy by Thomas Park.
-
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c904a2bc59f040c09f9f648393a451f8)](https://www.codacy.com/gh/Cpasklaire/SnowTricks/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Cpasklaire/SnowTricks&amp;utm_campaign=Badge_Grade)
 
 
 # Memory perso
