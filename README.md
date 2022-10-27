@@ -5,6 +5,7 @@
 Symfony 6
 MySQL 8
 Composer
+
 # Lancer le projet
 Cloner le repertoir.
 Modifier le .env selon votre configuration

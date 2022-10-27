@@ -90,7 +90,7 @@
         <div class="card">
           <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted">Mise à jour</h6>
-            <p class="card-text">Le {{trick.upDating | date('d/m/Y')}} par  {{trick.authorUp}} </p>
+            <p class="card-text">Le {{trick.upDating | date('d/m/Y')}} par  {{trick.upUser.Pseudo}} </p>
           </div>
         </div>
       {% endif %}
@@ -109,7 +109,7 @@
 
     <div class="card comments">
       <h5>{{trick.comments | length }} commentaires</h5>
-      {% for comment in trick.comments | slice(0,5) | reverse  %}
+      {% for comment in trick.comments | slice(0,5)  | reverse  %}
         <div class="card comment">
           <div class="author">
             {% if comment.CreatedUser.avatar == null  %}
