@@ -22,15 +22,17 @@ use App\Form\FormTrickType;
 use App\Form\FormMediaType;
 use App\Form\FormCommentType;
 
+use App\Services\PaginationService;
+
 class TrickController extends AbstractController
 {
     //view all tricks
     #[Route('/', name: 'home')]
-    public function home(trickRepository $trickRepo): Response
+    public function home(PaginationService $trickPagination): Response
     {
-        $tricks = $trickRepo->findAll();
+        //$tricks = $trickRepo->findAll();
         return $this->render('home.html.twig', [
-            'tricks' => $tricks, 
+            'tricks' => $trickPagination->getPaginatedTrick(), 
         ]);
     }
 
@@ -61,8 +63,8 @@ class TrickController extends AbstractController
 
     //create and edit one trick
     #[Route('/newTrick', name: 'newTrick')]
-    #[Route('/trick/{slug}/edit', name: 'editTrick')]
-    public function formTrick(Trick $trick = null, Request $request, EntityManagerInterface $manager, Media $media = null): Response
+    #[Route('/edit/{slug}', name: 'editTrick')]
+    public function formTrick(Trick $trick = null, Request $request, EntityManagerInterface $manager): Response
     {
         if(!$trick){
             $trick = new Trick();
@@ -89,7 +91,7 @@ class TrickController extends AbstractController
             $manager->persist($trick);
             $manager->flush();
 
-            return $this->redirectToRoute('addMedia', ['slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('trick', ['slug' => $trick->getSlug()]);
 
         }
 
@@ -100,12 +102,12 @@ class TrickController extends AbstractController
 
         //delect one trick
 
-        #[Route('/trick/{slug}/delete', name: 'deleteTrick')]
+        #[Route('/delete/trick/{slug}', name: 'deleteTrick')]
         public function deleteTrick(Trick $trick, EntityManagerInterface $manager): Response
         {
             $manager->remove($trick);
             $manager->flush();
-
+            $this->addFlash("flash", "Figure supprimée à jamais...");
             return $this->redirectToRoute('home');
         }
 }

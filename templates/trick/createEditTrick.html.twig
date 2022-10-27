@@ -2,11 +2,23 @@
 
 {% form_theme formTrick 'bootstrap_5_layout.html.twig' %}
 
-{% block title %} - Créer un trick{% endblock %}
+{% block title %}        
+  {% if editMode %}
+    - Modifier
+  {% else %}
+    - Créer un trick
+  {% endif %} 
+{% endblock %}
 
 {% block body %}
   <section class="form">
-    <h2>Nouveau trick</h2>
+  
+    {% if editMode %}
+      <h2>Modifier le trick</h2>
+    {% else %}
+      <h2>Nouveau trick</h2>
+    {% endif %}
+
     {{ form_start(formTrick) }}
 
       {{ form_row(formTrick.name, {'label' : 'Nom de la figure', 'attr': {'placeholder': 'Nom de la figure'}}) }}

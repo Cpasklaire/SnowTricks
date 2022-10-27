@@ -20,6 +20,7 @@ security:
                 login_path: login
                 check_path: login
                 enable_csrf: true
+                default_target_path: /
             logout:
                 path: logout
                 target: home
@@ -40,10 +41,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        #- { path: ^/newTrick, roles: ROLE_USER }
-        #- { path: ^/trick/{slug}/media, roles: ROLE_USER }
-        #- { path: ^/trick/{slug}/edit, roles: ROLE_USER }
-        #- { path: ^/trick/{slug}/delete, roles: ROLE_USER }
+        - { path: ^/newTrick, roles: ROLE_USER }
+        - { path: ^/edit, roles: ROLE_USER }
+        - { path: ^/delete, roles: ROLE_USER }
 
 when@test:
     security:

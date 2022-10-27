@@ -9,6 +9,6 @@
 // import './styles/style.scss';
 
 // start the Stimulus application
-import './bootstrap';
+/* import './bootstrap';
 
-import './trick';
+import './trick'; */

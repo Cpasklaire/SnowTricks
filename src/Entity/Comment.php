@@ -15,6 +15,12 @@ class Comment
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length([
+        'min' => 2,
+        'max' => 100,
+        'minMessage' => 'Votre commentaire doit contenir plus de 2 caractéres',
+        'maxMessage' => 'Votre commentaire doit contenir moins de 100 caractéres',
+    ])]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

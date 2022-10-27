@@ -34,9 +34,9 @@ class Trick
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\Length([
         'min' => 2,
-        'max' => 1000,
-        'minMessage' => 'Le nom de votre figure doit contenir plus de 2 caractéres',
-        'maxMessage' => 'Le nom de votre figure doit contenir moins de 1000 caractéres',
+        'max' => 2000,
+        'minMessage' => 'Votre description doit contenir plus de 2 caractéres',
+        'maxMessage' => 'Votre description doit contenir moins de 2000 caractéres',
     ])]
     private ?string $content = null;
 

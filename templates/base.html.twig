@@ -39,10 +39,12 @@
 				{% endif %}
 			</ul>
 		</header>
-    {% for flash in app.flashes('flash') %}
-        {{ flash }}
-    {% endfor %}
 
+    	{% for flash in app.flashes('flash') %}
+		<div class="flash">
+		{{ flash }}
+		</div>
+		{% endfor %}		
 		{% block body %}{% endblock %}
 	</body>
 </html>

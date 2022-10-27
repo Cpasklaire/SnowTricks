@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[Vich\Uploadable]
@@ -22,7 +23,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 50, unique: true)]
+    #[Assert\Length([
+        'min' => 2,
+        'max' => 50,
+        'minMessage' => 'Votre pseudo doit contenir plus de 2 caractéres',
+        'maxMessage' => 'Votre pseudo doit contenir moins de 50 caractéres',
+    ])]
     private ?string $Pseudo = null;
 
     #[ORM\Column]
@@ -32,9 +39,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\Length([
+        'min' => 4,
+        'max' => 50,
+        'minMessage' => 'Votre mot de passe doit contenir plus de 4 caractéres',
+        'maxMessage' => 'Votre mot de passe doit contenir moins de 50 caractéres',
+    ])]
     private ?string $password = null;
-
-    public ?string $confirmPassword = null;
 
     #[ORM\Column(length: 255, unique: true)]
     private ?string $email = null;

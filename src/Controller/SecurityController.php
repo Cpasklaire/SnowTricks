@@ -58,9 +58,7 @@ class SecurityController extends AbstractController
 
             $mailer->sendEmail(from: 'no-reply@swontrick.fr ', to: $user->getEmail(), subject: "Activation du compte Swon Tricks !", content: $message);
 
-
             $this->addFlash("flash", "Inscription réussie ! Vérifiez votre boîte mail pour activer votre compte.");
-
             return $this->redirectToRoute('login');
         }
 
@@ -70,7 +68,7 @@ class SecurityController extends AbstractController
     }
 
     #[Route('/confirmer-mon-compte/{token}', name: 'confirm_account')]
-    public function confirmAccount(string $token, Request $request, EntityManagerInterface $manager, UserRepository $userRepo)
+    public function confirmAccount(string $token, EntityManagerInterface $manager, UserRepository $userRepo, Request $request,)
     { 
         $user = $userRepo->findOneBy(['token' => $token]);
 
@@ -103,8 +101,8 @@ class SecurityController extends AbstractController
     }    
     
     
-    #[Route('/forgot-pass', name: 'forgot-pass')] // mdp persu
-    public function forgotPass(Request $request, UserRepository $userRepo, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher, MailerService $mailer)
+    #[Route('/forgot-pass', name: 'forgot-pass')]
+    public function forgotPass(Request $request, UserRepository $userRepo, EntityManagerInterface $manager, MailerService $mailer, UserPasswordHasherInterface $passwordHasher)
     {
 
         if ($request->isMethod('POST')) {
@@ -118,20 +116,21 @@ class SecurityController extends AbstractController
 
                 $userToken = $user->getToken();
                 $message = '<h1>Changer votre mot de passe</h1>
-                <a href="https://127.0.0.1:8000/'.$userToken.'">Cliquez ici ! </a>'
+                <a href="https://127.0.0.1:8000/connectToken/'.$userToken.'">Cliquez ici ! </a>'
                 ;
 
-                $recipient = new Recipient($user->getEmail());
+                //$recipient = new Recipient($user->getEmail());
                 $mailer->sendEmail(from: 'no-reply@swontrick.fr ', to: $user->getEmail(), subject: "Mot de passe perdu !", content: $message);
-
+                
+                $this->addFlash("flash", "Un mail viens de vous être envoyé.");
                 return $this->redirectToRoute("login");
             }
         }
         return $this->render('security/forgotPassword.html.twig');
     }
 
-    #[Route('/connectToken/{token}', name: 'connectToken')] // mdp persu
-    public function connectToken(string $token, Request $request, EntityManagerInterface $manager, UserRepository $userRepo)
+    #[Route('/connectToken/{token}', name: 'connectToken')]
+    public function connectToken(string $token, EntityManagerInterface $manager, UserRepository $userRepo, Request $request)
     { 
         $user = $userRepo->findOneBy(['token' => $token]);
 
@@ -145,7 +144,7 @@ class SecurityController extends AbstractController
         }
     }
 
-    #[Route('/edit/{pseudo}', name: 'changeMDP')]
+    #[Route('/change-passeword/{pseudo}', name: 'changeMDP')]
     public function changeMDP($pseudo, UserRepository $userRepo, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $passwordHasher): Response {
 
         $user = $userRepo->findOneBy(['Pseudo' => $pseudo]);
@@ -162,6 +161,7 @@ class SecurityController extends AbstractController
                 $manager->persist($user);
                 $manager->flush();
 
+                $this->addFlash("flash", "Mot de passe modifier, connectez vous ! ");
                 return $this->redirectToRoute('login');
             }
 

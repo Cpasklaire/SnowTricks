@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formVideo 'bootstrap_5_layout.html.twig' %}
+
+{% block title %} - Ajouter une video{% endblock %}
+
+{% block body %}
+  <section class="form">
+    <h2>Une petite video ?</h2>
+
+    {{ form_start(formVideo) }}
+        {{ form_row(formVideo.video, {'label' : 'Votre lien youtube', 'attr': {'placeholder': 'https://www.youtube.com/watch?v=0000000000'}}) }}
+        <button type="submit" class="btn btn-primary">
+          Sauvegarder 
+        </button>
+    {{ form_end(formVideo) }}
+
+  </section>
+{% endblock %}
