@@ -11,11 +11,10 @@ Cloner le repertoir.
 Modifier le .env selon votre configuration
 
 Dans votre console 
-'''
-php bin/console doctrine:database:create
-php bin/console doctrine:fixtures:load
-symfony server:start
-'''
+`php bin/console doctrine:database:create`
+`php bin/console doctrine:migrations:migrate`
+`php bin/console doctrine:fixtures:load`
+`symfony server:start`
 
 # Thanks you
 picture => vecteezy.com
@@ -25,7 +24,7 @@ bootstrap theme => sketchy by Thomas Park.
 
 # Memory perso
 commande 
-'''shell
+`
 symfony server:start
 
 php bin/console make:controller
@@ -41,4 +40,4 @@ php bin/console make:fixtures
 php bin/console doctrine:fixtures:load
 
 php bin/console debug:autowiring --all //les service possible
-'''
+`
