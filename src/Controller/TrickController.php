@@ -85,7 +85,7 @@ class TrickController extends AbstractController
             $name = $trick->getName();
             $slugger = new AsciiSlugger();
             $slug = $slugger->slug($name);
-            $trick->setSlug($slug);                
+            $trick->setSlug($slug);
 
             
             $manager->persist($trick);
