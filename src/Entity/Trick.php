@@ -19,7 +19,7 @@ class Trick
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, unique: true)]
     #[Assert\Length([
         'min' => 2,
         'max' => 50,
@@ -27,8 +27,9 @@ class Trick
         'maxMessage' => 'Le nom de votre figure doit contenir moins de 50 caractéres',
     ])]
     private ?string $name = null;
+    /* nom en unique */
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, unique: true)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
